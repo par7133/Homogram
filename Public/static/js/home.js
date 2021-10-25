@@ -50,7 +50,7 @@ function setFooterPos() {
     }
     //tollerance = 22;  	  
     $("#footerCont").css("top", parseInt( window.innerHeight - $("#footerCont").height() - tollerance ) + "px");
-    $("#footer").css("top", parseInt( window.innerHeight - $("#footer").height() - tollerance + 6) + "px");
+    $("#footer").css("top", parseInt( window.innerHeight - $("#footer").height() - tollerance) + "px");
   }
 }
 
