@@ -825,7 +825,7 @@ function showImages() {
 <form id="frmHC" method="POST" action="/" target="_self" enctype="multipart/form-data" style="display:<?php echo(($hideHCSplash==="1"?"inline":"none"));?>;">
 
 <div class="header">
-   <a href="http://homogram.org" target="_blank" style="color:#000000; text-decoration: none;"><img src="res/HGlogo2.png" style="width:45px;">&nbsp;Homogram</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/par7133/Homogram" style="color:#000000;"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:info@homogram.com" style="color:#000000;"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:#000000;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a>
+   <a href="http://homogram.org" target="_blank" style="color:#000000; text-decoration: none;"><img src="res/HGlogo2.png" style="width:45px;">&nbsp;Homogram</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/par7133/Homogram" style="color:#000000;"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:info@homogram.org" style="color:#000000;"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:#000000;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a>
 </div>
 	
 <div style="clear:both; float:left; padding:8px; width:15%; height:100%; text-align:center;">
@@ -881,7 +881,7 @@ function showImages() {
 	   
 	   <br>	
      
-	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homogram.com" style="color:#e6d236;">info@homogram.com</a>
+	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homogram.org" style="color:#e6d236;">info@homogram.org</a>
 	   
 	</div>	
 	<?php endif; ?>
