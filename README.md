@@ -7,7 +7,7 @@ Homogram is a light and simple software on premise to share your images.
 	   
 Homogram is released under GPLv3 license, it is supplied AS-IS and we do not take any responsibility for its misusage.   
 	   
-The name *Homogram* comes from a prank on the name 'instagram', in fact differently from the latter ones Homogram gives priorities to homines..    
+The name *Homogram* comes from a prank on the name 'instagram', in fact differently from the latter Homogram gives priorities to homines..    
 However Homogram doesn't birth as a replacement but just like its alter ego.. :o)     
      
 First step, use the left side panel password and salt fields to create the hash to insert in the config file. Remember to manually set there also the salt value.   
