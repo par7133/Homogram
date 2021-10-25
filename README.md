@@ -1,7 +1,7 @@
-#Homogram   
-##Every persone its pictures..   
+# Homogram   
+## Every persone its pictures..   
   
-Hello and welcome to Homogram!<br><br>
+Hello and welcome to Homogram!   
 	   
 Homogram is a light and simple software on premise to share your images.   
 	   
