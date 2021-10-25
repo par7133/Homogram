@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * Copyright 2021, 2024 5 Mode
+ *
+ * This file is part of Homogram.
+ *
+ * Homogram is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Homogram is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.  
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Homogram. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * config.inc
+ * 
+ * Homogram configuration settings.
+ *
+ * @author Daniele Bonini <my25mb@aol.com>
+ * @copyrights (c) 2021, 2024, 5 Mode     
+ */
+
+define('DEBUG', true);
+ 
+define('APP_NAME', "Homogram");
+
+// password: yourpassword
+// salt: yoursalt
+define('APP_HASH', "");
+
+define('APP_SPLASH', true);
+
+define('APP_PATH', "/var/www/YourWebApp/Public/static");
+define('APP_DATA_PATH', "/var/www/YourWebApp/Private/data");
+define('APP_SCRIPT_PATH', "/var/www/YourWebApp/Private/scripts");
+define('APP_ERROR_PATH', "/var/www/YourWebApp/Private/error");
+define('APP_SALT', "yoursalt");
+define('APP_REPO_PATH', "/var/www/YourWebApp/Public/static/HGRepo");
+
+//define('CMDLINE_VALIDCMDS', "~|help|ls|pwd|cd|cd ..|cp|mv|show|edit|");
+define('CMDLINE_VALIDCMDS', "~|privatify|publicify|del|makedir|");
+
+$CONFIG = [
+
+   'DEBUG' => true,
+
+   'APP' => [
+      'NAME' => "Homegram",
+      'HASH' => "",  
+      'SPLASH' => true,
+      'PATH' => "/var/www/YourWebApp/Public/static",
+      'DATA_PATH' => "/var/www/YourWebApp/Private/data",
+      'SCRIPT_PATH' => "/var/www/YourWebApp/Private/scripts",
+      'ERROR_PATH' => "/var/www/YourWebApp/Private/error",
+      'SALT' => "yoursalt",
+      'REPO_PATH' => "/var/www/YourWebApp/Public/static/HGRepo"
+      ],
+     
+    'CMDLINE' => [
+       'VALIDCMDS' => "~|privatify|publicify|del|makedir|"  
+      ]    
+    ];  
