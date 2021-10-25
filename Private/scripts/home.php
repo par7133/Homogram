@@ -616,19 +616,25 @@ function showImages() {
 
       if ((!$isPrivateFile && ($contextType === PUBLIC_CONTEXT_TYPE)) || ($contextType === PERSONAL_CONTEXT_TYPE)) {
         
-        echo "<div style='float:left;width:235px'>";
+        echo "<div style='float:left;width:235px;margin-right:4px;'>";
         echo "<table style='width:235px;height:230px;margin-top:5px;margin-right:4px;background-color:#e1e1e1;border:1px solid #D2D2D2'>";
         echo "<tr>";
         if ($contextType === PERSONAL_CONTEXT_TYPE) {
           echo "<td style='width:23px;cursor:pointer; vertical-align:bottom;' ondblclick='delImg(\"{$i}\",\"{$fileName}\")'><img id='del-{$i}' class='imgdel' src='/res/del.png' style='height:19px;'></td>";
           echo "<td style='width:45px;cursor:pointer' ondblclick='changeVisibility(\"{$i}\",\"{$fileName}\")'><img id='lock-{$i}' class='imglock' src='{$imgLock}' style='height:23px;'></td>";
         } else {
-          echo "<td style='width:23px;cursor:pointer; vertical-align:bottom;'><img id='del-{$i}' class='imgdel' src='/res/pxl.gif' style='height:19px;'></td>";
-          echo "<td style='width:45px;cursor:pointer'><img id='lock-{$i}' class='imglock' src='/res/pxl.gif' style='height:23px;'></td>";
+          echo "<td style='width:1px;cursor:pointer; vertical-align:bottom;'><img id='del-{$i}' class='imgdel' src='/res/pxl.gif' style='height:1px;'></td>";
+          echo "<td style='width:1px;cursor:pointer'><img id='lock-{$i}' class='imglock' src='/res/pxl.gif' style='height:1px;'></td>";
         }
-        echo "<td style='height:23px;text-align:center;font-size:11px;'>{$title}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+        echo "<td style='height:23px;text-align:center;font-size:11px;'>";
+        if ($contextType === PERSONAL_CONTEXT_TYPE) {
+          echo "{$title}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        } else {
+          echo "{$title}&nbsp;";
+        }  
+        echo "</td>";
         echo "<tr>";
-        echo "<tr><td style='padding:3px;height:200px;background-image:url(\"{$relPath}\");background-size:235px 200px;cursor:zoom-in;' colspan='3' onclick='openLink(\"{$relPath}\",\"_blank\")'>&nbsp;</td><tr>"; 
+        echo "<tr><td style='padding:3px;width:235px;height:200px;background-image:url(\"{$relPath}\");background-size:235px 200px;cursor:zoom-in;' colspan='3' onclick='openLink(\"{$relPath}\",\"_blank\")'>&nbsp;</td><tr>"; 
         echo "<tr><td style='text-align:left;font-size:11px' colspan='3'>&nbsp;{$cdate}</td><tr>";
         echo "</table>";
         echo "<div style='position:relative;top:-35px;text-align:right;padding-right:1.5px;'>";
