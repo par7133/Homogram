@@ -626,10 +626,12 @@ function showImages() {
           echo "<td style='width:1px;cursor:pointer; vertical-align:bottom;'><img id='del-{$i}' class='imgdel' src='/res/pxl.gif' style='height:1px;'></td>";
           echo "<td style='width:1px;cursor:pointer'><img id='lock-{$i}' class='imglock' src='/res/pxl.gif' style='height:1px;'></td>";
         }
-        echo "<td style='height:23px;text-align:center;font-size:11px;'>";
+        //echo "<td style='height:23px;text-align:center;font-size:11px;'>";
         if ($contextType === PERSONAL_CONTEXT_TYPE) {
-          echo "{$title}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+          echo "<td style='height:23px;text-align:right;font-size:11px;'>";
+          echo "{$title}&nbsp;";
         } else {
+          echo "<td style='height:23px;text-align:center;font-size:11px;'>";
           echo "{$title}&nbsp;";
         }  
         echo "</td>";
