@@ -550,7 +550,7 @@ function showImages() {
   }
 
   if ($contextType === PERSONAL_CONTEXT_TYPE) {
-    $title = "New folder";
+    $title = "Add folder";
     $cdate = date("d-m-Y");
 
     echo "<table style='float:left;width:235px;height:200px;margin-top:5px;margin-right:4px;border:0px solid #D2D2D2'>";
