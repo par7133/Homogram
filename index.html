@@ -149,6 +149,29 @@
 
 </form>
 
+<script>
+  
+function setFooterPos2() {
+  if (document.getElementById("footerCont")) {
+    //if ($("#Password").val() === "") {  
+    //    tollerance = 48;
+    //  } else {
+    //  tollerance = 15;
+    //}
+    tollerance = 22;  	  
+    $("#footerCont").css("top", parseInt( window.innerHeight - $("#footerCont").height() - tollerance ) + "px");
+    $("#footer").css("top", parseInt( window.innerHeight - $("#footer").height() - tollerance - 6) + "px");
+  }
+}
+
+window.addEventListener("load", function() {
+    
+  setTimeout("setFooterPos2()", 4000);
+
+}, true);
+  
+</script>  
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
