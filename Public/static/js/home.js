@@ -43,12 +43,12 @@ function encryptSha2(string) {
 
 function setFooterPos() {
   if (document.getElementById("footerCont")) {
-    //if ($("#Password").val() === "") {  
-    //    tollerance = 48;
-    //  } else {
-    //  tollerance = 15;
-    //}
-    tollerance = 22;  	  
+    if ($("#Password").val() === "") {  
+        tollerance = 48;
+    } else {
+      tollerance = 15;
+    }
+    //tollerance = 22;  	  
     $("#footerCont").css("top", parseInt( window.innerHeight - $("#footerCont").height() - tollerance ) + "px");
     $("#footer").css("top", parseInt( window.innerHeight - $("#footer").height() - tollerance + 6) + "px");
   }
