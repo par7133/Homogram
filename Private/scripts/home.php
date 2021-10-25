@@ -580,7 +580,6 @@ function showImages() {
     
     echo "<table style='float:left;width:235px;height:200px;margin-top:5px;margin-right:4px;border:0px solid #D2D2D2'>";
     echo "<tr><td style='text-align:center;font-size:11px'>{$title}</td><tr>";
-    //echo "<tr><td style='padding:3px;'><a href='/index.php?path={$relPath}'><img src='/res/folder.png' width='100%' height='200px'></a></td><tr>"; 
     echo "<tr><td style='padding:3px;'><a href='#' onclick='changePath(\"{$relPath}\")'><img src='/res/folder.png' width='100%' height='200px'></a></td><tr>"; 
     echo "<tr><td style='text-align:center;font-size:11px'>{$cdate}</td><tr>";
     echo "</table>";
@@ -589,6 +588,8 @@ function showImages() {
   $aImages = glob($pattern);
 
   sort($aImages);
+
+  $serverName = filter_input(INPUT_SERVER, "SERVER_NAME"); 
 
   $i=1;
   foreach ($aImages as &$fsEntry) {
@@ -627,13 +628,13 @@ function showImages() {
         }
         echo "<td style='height:23px;text-align:center;font-size:11px;'>{$title}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
         echo "<tr>";
-        echo "<tr><td style='padding:3px;height:200px;background-image:url({$relPath});background-size:235px 200px;cursor:zoom-in;' colspan='3' onclick='openLink(\"{$relPath}\",\"_blank\")'>&nbsp;</td><tr>"; 
+        echo "<tr><td style='padding:3px;height:200px;background-image:url(\"{$relPath}\");background-size:235px 200px;cursor:zoom-in;' colspan='3' onclick='openLink(\"{$relPath}\",\"_blank\")'>&nbsp;</td><tr>"; 
         echo "<tr><td style='text-align:left;font-size:11px' colspan='3'>&nbsp;{$cdate}</td><tr>";
         echo "</table>";
         echo "<div style='position:relative;top:-35px;text-align:right;padding-right:1.5px;'>";
-        echo "<a href=\"https://www.facebook.com/sharer/sharer.php?u=http://homogram.com{$relPath}&t=\" onclick=\"javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;\" target=\"_blank\" title=\"Share on Facebook\"><img src='/res/fb.png'></a>";
-        echo "<a href=\"https://twitter.com/share?url=http://homogram.com{$relPath}&text=\" onclick=\"javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;\" target=\"_blank\" title=\"Share on Twitter\"><img src='/res/twitter.png'></a>";
-        echo "<a href=\"whatsapp://send?text=http://homogram.com{$relPath}\" data-action=\"share/whatsapp/share\" onClick=\"javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;\" target=\"_blank\" title=\"Share on whatsapp\"><img src='/res/whatsapp.png'></a>";
+        echo "<a href=\"https://www.facebook.com/sharer/sharer.php?u=http://{$serverName}{$relPath}&t=\" onclick=\"javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;\" target=\"_blank\" title=\"Share on Facebook\"><img src='/res/fb.png'></a>";
+        echo "<a href=\"https://twitter.com/share?url=http://{$serverName}{$relPath}&text=\" onclick=\"javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;\" target=\"_blank\" title=\"Share on Twitter\"><img src='/res/twitter.png'></a>";
+        echo "<a href=\"whatsapp://send?text=http://{$serverName}{$relPath}\" data-action=\"share/whatsapp/share\" onClick=\"javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;\" target=\"_blank\" title=\"Share on whatsapp\"><img src='/res/whatsapp.png'></a>";
         echo "</div>";
         echo "</div>";
       }
