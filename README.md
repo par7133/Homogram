@@ -21,5 +21,5 @@ Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@h
 
 ### Screenshot:
 
- ![Homogram in action](Public/static/res/screenshot1.png)
+ ![Homogram in action](/Public/static/res/screenshot1.jpg)
   
