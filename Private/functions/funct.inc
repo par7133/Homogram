@@ -78,6 +78,25 @@ function HTMLencode(?string $s, bool $withBR = false): string
 } 
 }
 
+
+if (!function_exists("is_image")) {
+/**
+ * Determine if the given file is an image 
+ * 
+ * @param string $file the file being checked
+ * @return bool true/false if a file is an image    
+ */  
+function is_image(string $file) {
+  $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+  if ($fileExt === "gif" || $fileExt === "png" || $fileExt === "jpg" || $fileExt === "jpeg") {
+    return true;
+  } else {
+    return false;
+  }      
+} 
+}  
+
+
 if (!function_exists("is_word")) {
 /**
  * Determine if the given string is a word 
