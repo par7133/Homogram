@@ -34,6 +34,10 @@
  $param2 = PHP_STR;
  $param3 = PHP_STR;
  
+ $curPicture = "";
+ $prevPicture = "";
+ $nextPicture = "";
+ 
  
  function myExecPrivatifyCommand() {
    global $param1;
@@ -636,7 +640,7 @@ function showImages() {
         }  
         echo "</td>";
         echo "<tr>";
-        echo "<tr><td style='padding:3px;width:235px;height:200px;background-image:url(\"{$relPath}\");background-size:235px 200px;cursor:zoom-in;' colspan='3' onclick='openLink(\"{$relPath}\",\"_blank\")'>&nbsp;</td><tr>"; 
+        echo "<tr><td style='padding:3px;width:235px;height:200px;background-image:url(\"{$relPath}\");background-size:235px 200px;cursor:zoom-in;' colspan='3' onclick=\"openPic('$fileName')\"'>&nbsp;</td><tr>"; 
         echo "<tr><td style='text-align:left;font-size:11px' colspan='3'>&nbsp;{$cdate}</td><tr>";
         echo "</table>";
         echo "<div style='position:relative;top:-35px;text-align:right;padding-right:1.5px;'>";
@@ -651,6 +655,67 @@ function showImages() {
   }
   
 }
+
+ function openPicParamValidation() 
+ {
+
+	global $curPath;
+	global $opt;
+	global $param1;
+	global $param2; 
+	global $param3;
+
+	//opt!=""
+  if ($opt!==PHP_STR) {
+	  echo("invalid options");	
+    return false;
+  }	
+	//param1!="" and isword  
+	if (($param1===PHP_STR) || !is_word($param1)) {
+	  echo("invalid pic file");	
+    return false;
+  }
+	//param2==""
+	if ($param2!==PHP_STR) {
+    echo("invalid parameters");
+    return false;
+  }
+  //param3==""
+  if ($param3!==PHP_STR) {
+    echo("invalid parameters");
+    return false;
+  }
+	//param1 exist
+	$path = $curPath . DIRECTORY_SEPARATOR . $param1;
+	if (!file_exists($path)) {
+    echo("pic must exists");	
+	  return false;
+	}  	
+	//param1 is_file
+	if (!is_file($path)) {
+    echo("invalid pic file:" . $param1);	
+	  return false;
+	}  	
+  //param1 is_image
+  if (!is_image($param1)) {
+	  echo("invalid pic file" . $param1);	
+	  return false;
+  }    
+
+	return true;
+   
+ }  
+ 
+ 
+ function myExecOpenPicCommand() {
+   
+   global $curPath; 
+   global $curPicture;
+   global $param1;
+   
+   $curPicture = substr($curPath.DIRECTORY_SEPARATOR.$param1, strlen(dirname(APP_REPO_PATH)));
+ 
+ }   
  
   
  $password = filter_input(INPUT_POST, "Password");
@@ -679,17 +744,21 @@ function showImages() {
  $ipos = strripos($curPath, PHP_SLASH);
  $curDir = substr($curPath, $ipos);
  
+ parseCommand($command);
+ //echo("cmd=" . $cmd . "<br>");
+ //echo("opt=" . $opt . "<br>");
+ //echo("param1=" . $param1 . "<br>");
+ //echo("param2=" . $param2 . "<br>");
+ 
  if ($password !== PHP_STR) {
       
-   parseCommand($command);
-   //echo("cmd=" . $cmd . "<br>");
-   //echo("opt=" . $opt . "<br>");
-   //echo("param1=" . $param1 . "<br>");
-   //echo("param2=" . $param2 . "<br>");
-   
    upload();
    
    if (mb_stripos(CMDLINE_VALIDCMDS, "|" . $command . "|")) {
+ 
+     if ($command === "refresh") {
+       // refreshing Msg Board..
+     }
  
    } else if (mb_stripos(CMDLINE_VALIDCMDS, "|" . $cmd . "|")) {
      
@@ -709,7 +778,11 @@ function showImages() {
        if (makedirparamValidation()) {
          myExecMakeDirCommand();
        }	     
-     } 	   
+     } else if ($cmd === "openpic") {
+       if (openPicParamValidation()) {
+         myExecOpenPicCommand();
+       }	
+     }   
        
    } else {
      
@@ -719,6 +792,13 @@ function showImages() {
       
  } else {
  
+   if (mb_stripos(CMDLINE_VALIDCMDS, "|" . $cmd . "|")) {
+     if ($cmd === "openpic") {
+       if (openPicParamValidation()) {
+         myExecOpenPicCommand();
+       }	
+     }   
+   }
  }
  
  ?>
@@ -769,59 +849,6 @@ function showImages() {
   
   <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet">
   <link href="./css/style.css?v=<?php echo(time()); ?>" type="text/css" rel="stylesheet">
-     
-  <script>
-  
-	 $(document).ready(function() {
-
-		 $("#Password").on("keydown",function(e){
-		   key = e.which;
-		   //alert(key);
-		   if (key===13) {
-			 e.preventDefault();
-			 frmHC.submit();
-		   } else { 
-			 //e.preventDefault();
-		   }
-		 });
-
-   });
-		  
-   window.addEventListener("load", function() {		 
-		 <?php if($password===PHP_STR):?>
-		    $("#Password").addClass("emptyfield");
-		 <?php endif; ?>
-     //maxY = document.getElementById("Console").scrollHeight;
-     //alert(maxY);
-	 }, true);
-
-  function hideTitle() {
-    $("#myh1").hide("slow");
-  }
-  
-  function startApp() {
-	  $("#HCsplash").hide("slow");
-    $(document.body).css("background","#ffffff");
-	  $("#frmHC").show();
-	}			
-  <?php if($hideHCSplash!=="1"): ?>
-	window.addEventListener("load", function() {
-	
-    $(document.body).css("background","#000000");
-	  $("#HCsplash").show("slow");	  
-	  setTimeout("hideTitle()", 2000);
-    setTimeout("startApp()", 4000);
-
-	}, true);
-	<?php else: ?>
-  window.addEventListener("load", function() {
-		  
-	  startApp();
-	  
-	});	
-  <?php endif; ?>
-
-  </script>    
     
 </head>
 <body>
@@ -831,7 +858,53 @@ function showImages() {
    <img src="res/HGlogo2.png" style="width:310px;">
 </div>
 
-<form id="frmHC" method="POST" action="/" target="_self" enctype="multipart/form-data" style="display:<?php echo(($hideHCSplash==="1"?"inline":"none"));?>;">
+<?php
+//echo ("curPicture=**$curPicture**");
+  if ($curPicture != PHP_STR) {
+    
+    $apic = glob($curPath . DIRECTORY_SEPARATOR . "*");
+    $i=0;
+    foreach($apic as &$path) {
+      $fileName = basename($path);
+      if (is_file($curPath . DIRECTORY_SEPARATOR . $fileName)) {
+        $path=$fileName;
+      } else {
+        unset($apic[$i]); 
+      } 
+      $i++;  
+    }
+      
+    $i=array_search(basename($curPicture), $apic);
+    // if the only one
+    if (count($apic)==1) {
+      $prevPicture = basename($apic[0]);
+      $nextPicture = basename($apic[0]);
+    // if first  
+    } else if ($i==0) {
+      $prevPicture = basename($apic[count($apic)-1]);
+      $nextPicture = basename($apic[1]);
+    // if last        
+    } else if ($i==(count($apic)-1)) {
+      $prevPicture = basename($apic[$i-1]);
+      $nextPicture = basename($apic[0]);      
+    } else {
+      $prevPicture = basename($apic[$i-1]);
+      $nextPicture = basename($apic[$i+1]);      
+    }    
+    
+    $hidePlayer = "0";
+  } else {
+    $hidePlayer = "1";    
+  }    
+?>
+<div id="picPlayer" style="width:100%;height:1900px;vertical-align:middle;text-align:center;background:#000000;display:<?php echo(($hidePlayer==="1"? "none": "inline"));?>;">
+   <div id="closePlayer" style="position: absolute; top:20px; left:20px; cursor:pointer;" onclick="closePlayer()"><img src="/res/parent.png" style="width:64px;"></div>
+   <div id="myPicCont" style="width:100%;max-width:100%;clear:both;margin:auto;vertical-align:middle;background:#000000;"><img id="myPic" src="<?php echo($curPicture);?>" style="width:100%;vertical-align:middle;display:none;;background:#000000;"></div>
+   <div id="navPlayer1" style="position:absolute;top:3000px;width:175px;cursor:pointer;overflow-x:hidden;border:0px solid red;" onclick="openPic('<?php echo($prevPicture);?>')"><img src="/res/picPrev.png" style="width:200px;position:relative;left:-125px;"></div>
+   <div id="navPlayer2" style="position:absolute;top:3000px;width:175px;cursor:pointer;overflow-x:hidden;border:0px solid red;" onclick="openPic('<?php echo($nextPicture);?>')"><img src="/res/picNext.png" style="width:200px;position:relative;left:+100px;"></div>
+</div>
+
+<form id="frmHC" method="POST" action="/" target="_self" enctype="multipart/form-data" style="display:<?php echo((($hideHCSplash == "1") && ($hidePlayer == "1")?"inline":"none"));?>;">
 
 <div class="header">
    <a href="http://homogram.org" target="_blank" style="color:#000000; text-decoration: none;"><img src="res/HGlogo2.png" style="width:45px;">&nbsp;Homogram</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/par7133/Homogram" style="color:#000000;"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:info@homogram.org" style="color:#000000;"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:#000000;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a>
@@ -910,12 +983,119 @@ if ($contextType === PUBLIC_CONTEXT_TYPE) {
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
+</form>
+
 <div class="footer">
 <div id="footerCont">&nbsp;</div>
 <div id="footer"><span style="background:#E1E1E1;color:black;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project and <a href="http://wysiwyg.systems">WYSIWYG</a> system. Some rights reserved.</span></div>	
 </div>
 
-</form>
+<script>
+
+$(document).ready(function() {
+
+ $("#Password").on("keydown",function(e){
+   key = e.which;
+   //alert(key);
+   if (key===13) {
+   e.preventDefault();
+   frmHC.submit();
+   } else { 
+   //e.preventDefault();
+   }
+ });
+
+});
+  
+function setPPlayer() {
+  
+  $("#picPlayer").css("height", parseInt(window.innerHeight)+"px");
+
+  $("#myPicCont").css("height", parseInt(window.innerHeight)+"px");
+  $("#myPicCont").css("max-width", parseInt(window.innerWidth)+"px");
+  
+  $("#closePlayer").css("left", "10px");
+  $("#navPlayer1").css("top", parseInt((window.innerHeight-200)/2)+"px");
+  $("#navPlayer2").css("top", parseInt((window.innerHeight-200)/2)+"px");
+  $("#navPlayer2").css("left", parseInt(window.innerWidth-175)+"px");
+  
+  if (document.getElementById("myPic").src!="") {
+    if ($("#myPic").width() > $("#myPic").height()) {
+      f = $("#myPic").width() / $("#myPic").height();
+      $("#myPic").css("padding-top", parseInt((window.innerHeight - $("#myPic").height()) / 2)+"px");
+      $("#myPic").css("width", "100%"); //parseInt(window.innerWidth)+"px");
+      $("#myPic").css("height", "");
+      $("#myPic").css("max-height", parseInt(window.innerHeight)+"px");
+    } else {
+      $("#myPic").css("width", "");
+      $("#myPic").css("max-width", parseInt(window.innerWidth)+"px");
+      $("#myPic").css("height", "100%"); //parseInt(window.innerHeight)+"px");
+      $("#myPicCont").css("max-width", parseInt(window.innerWidth)+"px");      
+    }    
+    $("#myPic").css("display", "inline");
+  }  
+
+  $(document.body).css("overflow-x","hidden");
+}  
+
+function hideTitle() {
+  $("#myh1").hide("slow");
+}
+
+function startApp() {
+  $("#HCsplash").hide("slow");
+  $(document.body).css("background","#ffffff");
+  $("#frmHC").show();
+}			
+
+<?php if($hideHCSplash!=="1"): ?>
+window.addEventListener("load", function() {
+
+  $(document.body).css("background","#000000");
+  $("#HCsplash").show("slow");	  
+  setTimeout("hideTitle()", 2000);
+  setTimeout("startApp()", 4000);
+
+}, true);
+<?php else: ?>
+window.addEventListener("load", function() {
+  
+  <?php if ($hidePlayer == "1"): ?>  
+  startApp();
+  <?php endif; ?>
+  
+});	
+<?php endif; ?>
+
+window.addEventListener("load", function() {
+  <?php if ($hideHCSplash != "1" || $hidePlayer != "1"): ?>
+  $(document.body).css("backgrond","#000000");
+  <?php else: ?>
+  $(document.body).css("backgrond","#FFFFFF");
+  <?php endif; ?>
+});
+
+window.addEventListener("load", function() {
+
+ <?php if($password===PHP_STR):?>
+    $("#Password").addClass("emptyfield");
+ <?php endif; ?>
+ //maxY = document.getElementById("Console").scrollHeight;
+ //alert(maxY);
+
+  <?php if ($hidePlayer == "0"): ?>
+  setPPlayer();
+  <?php endif; ?>
+}, true);
+
+window.addEventListener("resize", function() {
+  <?php if ($hidePlayer == "0"): ?>
+  setPPlayer();
+  <?php endif; ?>
+}, true);
+
+</script>    
+
 
 </body>	 
 </html>	 
