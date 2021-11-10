@@ -43,8 +43,7 @@ define('APP_ERROR_PATH', "/var/www/YourWebApp/Private/error");
 define('APP_SALT', "yoursalt");
 define('APP_REPO_PATH', "/var/www/YourWebApp/Public/static/HGRepo");
 
-//define('CMDLINE_VALIDCMDS', "~|help|ls|pwd|cd|cd ..|cp|mv|show|edit|");
-define('CMDLINE_VALIDCMDS', "~|privatify|publicify|del|makedir|");
+define('CMDLINE_VALIDCMDS', "~|privatify|publicify|del|makedir|refresh|openpic|");
 
 $CONFIG = [
 
@@ -63,6 +62,6 @@ $CONFIG = [
       ],
      
     'CMDLINE' => [
-       'VALIDCMDS' => "~|privatify|publicify|del|makedir|"  
+       'VALIDCMDS' => "~|privatify|publicify|del|makedir|refresh|openpic|"  
       ]    
     ];  
