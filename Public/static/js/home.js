@@ -117,6 +117,21 @@ $("#Salt").on("keydown", function(e){
 	$("#Salt").removeClass("emptyfield");
 });	
 
+function refresh() {
+ $("#CommandLine").val("refresh");
+ frmHC.submit();
+}
+
+function closePlayer() {
+  refresh();
+}
+
+function openPic(pic) {
+  //alert(pic);
+  $("#CommandLine").val("openpic " + pic);
+  frmHC.submit();
+}
+
 window.addEventListener("load", function() {
     
   setTimeout("setFooterPos()", 3000);
