@@ -49,6 +49,32 @@ function fixMultipleFileUpload(&$f): array
     return $files;
 }
 }
+
+
+if (!function_exists("getResource")) {
+/**
+ * Get a resource translated 
+ * 
+ * @param string $string the string to get translated
+ * @param string $destLocale the destination locale
+ * @return string the translated resource    
+ */  
+function getResource(string $string, string $destLocale = "EN"): string
+{
+  
+  global $LOCALE;
+  
+  if ($destLocale === "EN") {
+    return $string; 
+  }    
+
+  if ($LOCALE[$destLocale]["Monday"]==PHP_STR) {
+    return $string; 
+  }    
+
+  return str_ireplace(array_keys($LOCALE[$destLocale]),array_values($LOCALE[$destLocale]), $string);
+}
+}
  
  
 if (!function_exists("HTMLencode")) { 
