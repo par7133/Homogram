@@ -24,6 +24,34 @@
  * @copyrights (c) 2021, 2024, the Open Gallery's contributors     
  */
 
+var bBurgerMenuVisible = false;
+
+$(document).ready(function() {
+ $("#Password").on("keydown",function(e){
+   key = e.which;
+   //alert(key);
+   if (key===13) {
+   e.preventDefault();
+   frmHC.submit();
+   } else { 
+     $("#Password2").val($(this).val());
+   //e.preventDefault();
+   }
+ });
+
+ $("#Password2").on("keydown",function(e){
+   key = e.which;
+   //alert(key);
+   if (key===13) {
+   e.preventDefault();
+   $("#Password").val("");
+   frmHC.submit();
+   } else { 
+   //e.preventDefault();
+   }
+ });
+});
+
 function closeSplash() {
   $("#hideSplash").val("1");
   $("#splash").hide();	
@@ -132,18 +160,78 @@ function openPic(pic) {
   frmHC.submit();
 }
 
+$("#burger-menu").on("click",function(){
+  if (!bBurgerMenuVisible) {
+    $(".burger-header").css("display", "table");
+  } else {
+    $(".burger-header").css("display", "none");
+  }    
+  bBurgerMenuVisible=!bBurgerMenuVisible;  
+});
+
+function hideBurgerMenu() {
+  $(".burger-header").css("display", "none");
+  bBurgerMenuVisible=false;  
+}
+
+
+function setContentPos() {
+  if (window.innerWidth<650) {
+    $("#ahome").attr("href","/");
+    $("#agithub").css("display","none");
+    $("#afeedback").css("display","none");
+    $("#asupport").css("display","none");
+    $("#pwd2").css("display","inline");    
+    $("#sidebar").css("display","none");
+    $("#burger-menu").css("display","inline");
+    $("#contentbar").css("width","100%");
+    $("#logo-hg").css("display","none");
+  } else {  
+    $("#ahome").attr("href","http://homomm.org");
+    $("#agithub").css("display","inline");
+    $("#afeedback").css("display","inline");
+    $("#asupport").css("display","inline");  
+    $("#pwd2").css("display","none");
+    $("#sidebar").css("display","inline");
+    $("#burger-menu").css("display","none");
+    $("#contentbar").css("width","75%");
+    $("#logo-hg").css("display","inline");
+  }
+  hideBurgerMenu();
+}
+
+function loadImages() {
+  $(".image-cont").each(function(){
+    $(this).css("display","inline");
+  }); 
+}  
+
 window.addEventListener("load", function() {
     
-  setTimeout("setFooterPos()", 3000);
+  if ($("#frmHC").css("display")==="none") {
+    setTimeout("setContentPos()", 5200);
+    setTimeout("setFooterPos()", 5300);
+  } else {
+    setTimeout("setContentPos()", 1000);
+    setTimeout("setFooterPos()", 2000);  
+  } 
+
+  loadImages();
 
   //document.getElementById("CommandLine").focus();  
   
-}, true);
+});
 
 window.addEventListener("resize", function() {
 
-  setTimeout("setFooterPos()", 3000);
+  if ($("#frmHC").css("display")==="none") {
+    setTimeout("setContentPos()", 5200);
+    setTimeout("setFooterPos()", 5300);
+  } else {
+    setTimeout("setContentPos()", 1000);
+    setTimeout("setFooterPos()", 2000);  
+  } 
 
-}, true);
+});
 
 
