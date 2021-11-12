@@ -42,6 +42,8 @@ define('APP_SCRIPT_PATH', "/var/www/YourWebApp/Private/scripts");
 define('APP_ERROR_PATH', "/var/www/YourWebApp/Private/error");
 define('APP_SALT', "yoursalt");
 define('APP_REPO_PATH', "/var/www/YourWebApp/Public/static/HGRepo");
+// Default Locale, in two letters format
+define('APP_LOCALE', "EN");
 
 define('CMDLINE_VALIDCMDS', "~|privatify|publicify|del|makedir|refresh|openpic|");
 
@@ -58,10 +60,30 @@ $CONFIG = [
       'SCRIPT_PATH' => "/var/www/YourWebApp/Private/scripts",
       'ERROR_PATH' => "/var/www/YourWebApp/Private/error",
       'SALT' => "yoursalt",
-      'REPO_PATH' => "/var/www/YourWebApp/Public/static/HGRepo"
+      'REPO_PATH' => "/var/www/YourWebApp/Public/static/HGRepo",
+      // Default Locale, in two letters format
+      'LOCALE' => "EN"
       ],
      
     'CMDLINE' => [
        'VALIDCMDS' => "~|privatify|publicify|del|makedir|refresh|openpic|"  
       ]    
     ];  
+
+$LOCALE = [
+
+   'IT' => [
+    'Monday' => 'Lunedi',
+    'You are in' => "Sei in",
+    ' as ' => " come ",
+    'owner' => "owner",
+    'guest' => "guest",
+    'Parent' => "Padre",
+    'Add' => "Aggiungi",
+    'folder' => "cartella",
+    ' Go ' => " Vai ",
+    'Hash me' => "Hashmi",
+    'Upload' => "Carica"
+    ]
+
+  ];
