@@ -37,7 +37,7 @@
  $curPicture = "";
  $prevPicture = "";
  $nextPicture = "";
- 
+ $curLocale = APP_LOCALE;
  
  function myExecPrivatifyCommand() {
    global $param1;
@@ -505,6 +505,7 @@ function showImages() {
  
   global $curPath;
   global $contextType;
+  global $curLocale;
   
   $privateData = [];
    
@@ -531,7 +532,7 @@ function showImages() {
    */
   if ($path!==$root) {
     
-    $title = "Parent";
+    $title = getResource("Parent", $curLocale);
     $ipos = mb_strripos($subpath, "/");
     $parentPath = substr($subpath, 0, $ipos);   
     $relPath = substr($parentPath, strlen(APP_REPO_PATH));
@@ -543,7 +544,7 @@ function showImages() {
     echo "<tr><td style='text-align:center;font-size:11px'>{$cdate}</td><tr>";
     echo "</table>";    
   } else {
-    $title = "Parent";
+    $title = getResource("Parent", $curLocale);
     $cdate = date("d-m-Y", filectime($root));  
     
     echo "<table style='float:left;width:235px;height:200px;margin-top:5px;margin-right:4px;border:0px solid #D2D2D2'>";
@@ -554,7 +555,7 @@ function showImages() {
   }
 
   if ($contextType === PERSONAL_CONTEXT_TYPE) {
-    $title = "Add folder";
+    $title = getResource("Add folder", $curLocale);
     $cdate = date("d-m-Y");
 
     echo "<table style='float:left;width:235px;height:200px;margin-top:5px;margin-right:4px;border:0px solid #D2D2D2'>";
@@ -589,6 +590,9 @@ function showImages() {
     echo "</table>";
   }
 
+  /*
+   * Display images
+   */
   $aImages = glob($pattern);
 
   sort($aImages);
@@ -620,8 +624,8 @@ function showImages() {
 
       if ((!$isPrivateFile && ($contextType === PUBLIC_CONTEXT_TYPE)) || ($contextType === PERSONAL_CONTEXT_TYPE)) {
         
-        echo "<div style='float:left;width:235px;margin-right:4px;'>";
-        echo "<table style='width:235px;height:230px;margin-top:5px;margin-right:4px;background-color:#e1e1e1;border:1px solid #D2D2D2'>";
+        echo "<div class=\"image-cont\" style='float:left;width:235px;margin-right:4px;display:none;'>";
+        echo "<table style='width:235px;height:230px;margin-top:5px;margin-right:4px;background-color:#e1e1e1;border:1px solid #D2D2D2;'>";
         echo "<tr>";
         if ($contextType === PERSONAL_CONTEXT_TYPE) {
           echo "<td style='width:23px;cursor:pointer; vertical-align:bottom;' ondblclick='delImg(\"{$i}\",\"{$fileName}\")'><img id='del-{$i}' class='imgdel' src='/res/del.png' style='height:19px;'></td>";
@@ -719,6 +723,9 @@ function showImages() {
  
   
  $password = filter_input(INPUT_POST, "Password");
+ if ($password==PHP_STR) {
+   $password = filter_input(INPUT_POST, "Password2");
+ }  
  $command = filter_input(INPUT_POST, "CommandLine");
  
  $pwd = filter_input(INPUT_POST, "pwd"); 
@@ -907,14 +914,32 @@ function showImages() {
 <form id="frmHC" method="POST" action="/" target="_self" enctype="multipart/form-data" style="display:<?php echo((($hideHCSplash == "1") && ($hidePlayer == "1")?"inline":"none"));?>;">
 
 <div class="header">
-   <a href="http://homogram.org" target="_blank" style="color:#000000; text-decoration: none;"><img src="res/HGlogo2.png" style="width:45px;">&nbsp;Homogram</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/par7133/Homogram" style="color:#000000;"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:info@homogram.org" style="color:#000000;"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:#000000;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a>
+   <a id="burger-menu" href="#" style="display:none;"><img src="/res/burger-menu2.png" style="width:58px;"></a><a id="ahome" href="http://homogram.org" target="_blank" style="color:#000000; text-decoration: none;"><img  id="logo-hg" src="res/HGlogo2.png" style="width:45px;">&nbsp;Homogram</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="agithub" href="https://github.com/par7133/Homogram" style="color:#000000;"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="afeedback" href="mailto:info@homogram.org" style="color:#000000;"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="asupport" href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:#000000;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a><div id="pwd2" style="float:right;position:relative;top:+13px;display:none"><input type="password" id="Password2" name="Password2" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 125px; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off"></div>
 </div>
-	
-<div style="clear:both; float:left; padding:8px; width:15%; height:100%; text-align:center;">
+
+<div style="clear:both;"></div>
+
+<table class="burger-header" style="width:100%;border:3px solid #e4f5f7;display:none;">
+<tr>
+<td style="width:100%;background:#e4f5f7;">    
+<?php if ($password!==PHP_STR): ?>
+    <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="#" style="text-decoration:none;color:black;" onclick="upload()"><?php echo(strtolower(getResource("Upload", $curLocale)));?></a></div>
+<?php endif; ?>
+    <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="https://github.com/par7133/Homogram" style="text-decoration:none;color:black;">on github</a></div>
+    <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="mailto:info@homogram.org" style="text-decoration:none;color:black;">for feedback</a></div>
+    <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="text-decoration:none;color:black;">get support</a></div>
+</td>
+</tr>
+</table>  
+
+<div style="clear:both;"></div>
+
+
+<div id="sidebar" style="clear:both; float:left; padding:8px; width:25%; max-width:250px; height:100%; text-align:center; border-right: 1px solid #2c2f34;">
 	<div style="padding-left:12px;text-align: left;">
 	  &nbsp;
     <?php if ($password!==PHP_STR): ?>
-    <a href="#" id="upload" style="color:#5ab5e4;" onclick="upload()">Upload</a>
+    <a href="#" id="upload" style="color:#5ab5e4;" onclick="upload()"><?php echo(getResource("Upload", $curLocale));?></a>
 	  <input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;">
     <?php else: ?>
     <br>
@@ -923,18 +948,22 @@ function showImages() {
     <br><br>
     <img src="res/HGgenius.png" alt="HG Genius" title="HG Genius" style="position:relative; left:+6px; width:90%; border: 1px dashed #EEEEEE;">
     &nbsp;<br><br><br>
-    &nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:10px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off"><br>
-    &nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:10px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
-    &nbsp;<a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>     
+    <div style="text-align:left;white-space:nowrap;">
+    &nbsp;&nbsp;<input type="password" id="Password" name="Password" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="<?php echo(getResource(" Go ", $curLocale));?>" style="text-align:left;width:25%;"><br>
+    &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:13px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
+    <div style="text-align:center;">
+    <a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;"><?php echo(getResource("Hash Me", $curLocale));?>!</a>     
+    </div> 
+    </div>
 
 <input type="hidden" id="CommandLine" name="CommandLine">
 <input type="hidden" id="pwd" name="pwd" value="<?php echo(substr($curPath, strlen(APP_REPO_PATH))); ?>" style="color:black">
 <input type="hidden" name="hideSplash" value="<?php echo($hideSplash); ?>">
 <input type="hidden" name="hideHCSplash" value="1">
-
+   
 </div>
 
-<div style="float:left; width:85%;height:100%; padding:8px; border-left: 1px solid #2c2f34;">
+<div id="contentbar" style="float:left; width:75%;height:100%; padding:8px;">
 	
 	<?php if (APP_SPLASH): ?>
 	<?php if ($hideSplash !== PHP_STR): ?>
@@ -970,9 +999,9 @@ function showImages() {
 	<?php endif; ?>
   <?php   
 if ($contextType === PUBLIC_CONTEXT_TYPE) { 
-  echo("&nbsp;You are in <span style='color:orange;'>~/" . substr($curPath, strlen(APP_REPO_PATH)+1) . "</span> as <span style='color:black;'>guest</span><br>");
+  echo("&nbsp;" . getResource("You are in ", $curLocale) . "<span style='color:orange;'>~/" . substr($curPath, strlen(APP_REPO_PATH)+1) . "</span>" . getResource(" as ", $curLocale) . "<span style='color:black;'>" . getResource("guest", $curLocale) . "</span><br>");
 } else {
-  echo("&nbsp;You are in <span style='color:orange;'>~/" . substr($curPath, strlen(APP_REPO_PATH)+1) . "</span> as <span style='color:green;'>owner</span><br>");
+  echo("&nbsp;" . getResource("You are in ", $curLocale) . "<span style='color:orange;'>~/" . substr($curPath, strlen(APP_REPO_PATH)+1) . "</span>" . getResource(" as ", $curLocale) . "<span style='color:green;'>" . getResource("owner", $curLocale) . "</span><br>");
 }    
 ?><br>
 	<div id="Console" style="hei-ght:493px; over-flow-y:auto; margin-top:10px;">
@@ -991,21 +1020,6 @@ if ($contextType === PUBLIC_CONTEXT_TYPE) {
 </div>
 
 <script>
-
-$(document).ready(function() {
-
- $("#Password").on("keydown",function(e){
-   key = e.which;
-   //alert(key);
-   if (key===13) {
-   e.preventDefault();
-   frmHC.submit();
-   } else { 
-   //e.preventDefault();
-   }
- });
-
-});
   
 function setPPlayer() {
   
