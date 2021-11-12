@@ -35,6 +35,20 @@ body {
   background-color: #FFFFFF;
   color: #000000;
 }
+.burger-header-ve  {
+  background: #FFFFFF;
+}  
+.burger-header-ve:hover  {
+  background: #E1E1E1;
+}
+.burger-header-ve-selected {
+  background: #73b3f2;
+  color: #FFFFFF;
+  font-weight: 900;
+}
+.burger-header-ve-selected a{
+  color: #FFFFFF;
+}
 .standardfield{
   border: 0px;
   border-bottom: 1px dashed #EEEEEE;
