@@ -136,7 +136,7 @@ if (!function_exists("is_word")) {
 	  return false;
    }	  	 
 	 
-   return preg_match("/^[\w\-\.]+?$/", $string);	 
+   return preg_match("/^[\w\-\. ]+?$/", $string);	 
  }	 
 
 }
