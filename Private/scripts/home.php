@@ -191,23 +191,44 @@
    global $curPath;
    
    $privateData = [];
+   $publicData = [];
    
    $real_param1 = trim($param1, "'");
    
    $curFile = substr($curPath, strlen(APP_REPO_PATH)) . DIRECTORY_SEPARATOR . $real_param1;
    //echo "curFile=$curFile";
    
-   // Update .private file
-   $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
-   //echo "curFile=$privateFile";
+   if (APP_DEFAULT_CONTEXT === "PUBLIC") {
    
-   if (file_exists($privateFile)) {
-     $privateData = file($privateFile);   
-   }  
-   if (!in_array($curFile . "\n", $privateData)) {
-     $privateData[] = $curFile . "\n";  
-     file_put_contents($privateFile, implode('', $privateData));
-   }
+     // Insert in .public
+  
+     $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
+     //echo "curFile=$privateFile";
+     
+     if (file_exists($privateFile)) {
+       $privateData = file($privateFile);   
+     }  
+     if (!in_array($curFile . "\n", $privateData)) {
+       $privateData[] = $curFile . "\n";  
+       file_put_contents($privateFile, implode('', $privateData));
+     }
+   
+   } else {
+   
+     // Cut off from .private
+   
+     $publicFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".public";
+     //echo "curFile=$publicFile";
+     
+     if (file_exists($publicFile)) {
+       $publicData = file($publicFile);   
+     }  
+     $key = array_search($curFile . "\n", $publicData);  
+     if ($key!==false) {
+       unset($publicData[$key]);  
+       file_put_contents($publicFile, implode('', $publicData));
+     }
+   }   
  }
 
 
@@ -266,24 +287,44 @@
    global $curPath;
    
    $privateData = [];
+   $publicData = [];
    
    $real_param1 = trim($param1, "'");
    
    $curFile = substr($curPath, strlen(APP_REPO_PATH)) . DIRECTORY_SEPARATOR . $real_param1;
    //echo "curFile=$curFile";
    
-   // Update .private file
-   $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
-   //echo "curFile=$privateFile";
+   if (APP_DEFAULT_CONTEXT === "PRIVATE") {
    
-   if (file_exists($privateFile)) {
-     $privateData = file($privateFile);   
-   }  
-   $key = array_search($curFile . "\n", $privateData);  
-   if ($key!==false) {
-     unset($privateData[$key]);  
-     file_put_contents($privateFile, implode('', $privateData));
-   }
+     // Insert in .public
+  
+     $publicFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".public";
+     //echo "curFile=$publicFile";
+     
+     if (file_exists($publicFile)) {
+       $publicData = file($publicFile);   
+     }  
+     if (!in_array($curFile . "\n", $publicData)) {
+       $publicData[] = $curFile . "\n";  
+       file_put_contents($publicFile, implode('', $publicData));
+     }
+   
+   } else {
+   
+     // Cut off from .private
+   
+     $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
+     //echo "curFile=$privateFile";
+     
+     if (file_exists($privateFile)) {
+       $privateData = file($privateFile);   
+     }  
+     $key = array_search($curFile . "\n", $privateData);  
+     if ($key!==false) {
+       unset($privateData[$key]);  
+       file_put_contents($privateFile, implode('', $privateData));
+     }
+   }   
  }
 
 
@@ -536,12 +577,15 @@ function showImages() {
   global $contextType;
   global $curLocale;
   
-  $privateData = [];
-   
-  $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
-
-  if (file_exists($privateFile)) {
-    $privateData = file($privateFile);   
+  $exclData = [];
+  
+  if (APP_DEFAULT_CONTEXT === "PUBLIC") { 
+    $exclFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
+  } else {   
+    $exclFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".public"; 
+  }  
+  if (file_exists($exclFile)) {
+    $exclData = file($exclFile);   
   }  
  
   ///$root = "img";
@@ -637,13 +681,23 @@ function showImages() {
       $fileName = basename($fsEntry);
 
       $curFile = substr($curPath, strlen(APP_REPO_PATH)) . DIRECTORY_SEPARATOR . $fileName;
-      $isPrivateFile = false;
-      $imgLock = "/res/public.png";
-      if (in_array($curFile . "\n",$privateData)) {
+      
+      if (APP_DEFAULT_CONTEXT === "PUBLIC") {
+        $isPrivateFile = false;
+        $imgLock = "/res/public.png";
+        if (in_array($curFile . "\n",$exclData)) {
+          $isPrivateFile = true;
+          $imgLock = "/res/private.png";
+        }  
+      } else {  
         $isPrivateFile = true;
         $imgLock = "/res/private.png";
-      }  
-
+        if (in_array($curFile . "\n",$exclData)) {
+          $isPrivateFile = false;
+          $imgLock = "/res/public.png";
+        }  
+      }
+      
       $ipos = mb_strripos($fsEntry, "/");
       $title = substr($fsEntry, $ipos+1);
       $ipos = mb_stripos($title, ".");
