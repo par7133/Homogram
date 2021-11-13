@@ -33,6 +33,11 @@ ini_set('log_errors',1);
 
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "config.inc";
 
+// Checking Default Context
+if (APP_DEFAULT_CONTEXT != "PRIVATE" && APP_DEFAULT_CONTEXT != "PUBLIC") {
+  die("Invalid DEFAULT_CONTEXT: " . APP_DEFAULT_CONTEXT);
+}	
+
 // Checking a little the configuration..
 if (!file_exists(APP_REPO_PATH)) {
   die("Repository folder doesn't exist. You must create the repository folder in your web app public path and configure it properly inside the config file.");
