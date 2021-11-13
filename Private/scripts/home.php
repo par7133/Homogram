@@ -39,69 +39,6 @@
  $nextPicture = "";
  $curLocale = APP_LOCALE;
  
- function myExecPrivatifyCommand() {
-   global $param1;
-   global $curPath;
-   
-   $privateData = [];
-   
-   $curFile = substr($curPath, strlen(APP_REPO_PATH)) . DIRECTORY_SEPARATOR . $param1;
-   //echo "curFile=$curFile";
-   
-   // Update .private file
-   $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
-   //echo "curFile=$privateFile";
-   
-   if (file_exists($privateFile)) {
-     $privateData = file($privateFile);   
-   }  
-   if (!in_array($curFile . "\n", $privateData)) {
-     $privateData[] = $curFile . "\n";  
-     file_put_contents($privateFile, implode('', $privateData));
-   }
- }
-
- function myExecDelCommand() {
-   global $param1;
-   global $curPath;
-   
-   $curFile = $curPath . DIRECTORY_SEPARATOR . $param1;
-   
-   unlink($curFile);
-   
- }  
-
- function myExecPublicifyCommand() {
-   global $param1;
-   global $curPath;
-   
-   $privateData = [];
-   
-   $curFile = substr($curPath, strlen(APP_REPO_PATH)) . DIRECTORY_SEPARATOR . $param1;
-   //echo "curFile=$curFile";
-   
-   // Update .private file
-   $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
-   //echo "curFile=$privateFile";
-   
-   if (file_exists($privateFile)) {
-     $privateData = file($privateFile);   
-   }  
-   $key = array_search($curFile . "\n", $privateData);  
-   if ($key!==false) {
-     unset($privateData[$key]);  
-     file_put_contents($privateFile, implode('', $privateData));
-   }
- }
-
- function myExecMakeDirCommand() {
-   global $param1;
-   global $curPath;
-
-   $newpath = $curPath . DIRECTORY_SEPARATOR . $param1;
-   
-   mkdir($newpath, 0777);   
- }   
 
  function parseCommand() {
    global $command;
@@ -118,8 +55,8 @@
      $cmd = left($str, $ipos);
      $str = substr($str, $ipos+1);
    } else {
-	 $cmd = $str;
-	 return;
+	   $cmd = $str;
+	   return;
    }	     
    
    if (left($str, 1) === "-") {
@@ -133,15 +70,26 @@
 	 }	     
    }
    
-   $ipos = stripos($str, PHP_SPACE);
-   if ($ipos > 0) {
-     $param1 = left($str, $ipos);
-     $str = substr($str, $ipos+1);
-   } else {
-	 $param1 = $str;
-	 return;
-   }	     
-  
+   if (left($str, 1) === "'") {
+     $ipos = stripos($str, "'", 1);
+     if ($ipos > 0) {
+       $param1 = substr($str, 0, $ipos+1);
+       $str = substr($str, $ipos+1);
+     } else {
+       $param1 = $str;
+       return;
+     }  
+   } else {   
+     $ipos = stripos($str, PHP_SPACE);
+     if ($ipos > 0) {
+       $param1 = left($str, $ipos);
+       $str = substr($str, $ipos+1);
+     } else {
+       $param1 = $str;
+       return;
+     }	     
+   }
+     
    $ipos = stripos($str, PHP_SPACE);
    if ($ipos > 0) {
      $param2 = left($str, $ipos);
@@ -198,44 +146,70 @@
 
 	//opt!=""
   if ($opt!==PHP_STR) {
-	  //updateHistoryWithErr("invalid options");	
+	  echo("WARNING: invalid options<br>");	
     return false;
   }	
 	//param1!="" and isword  
-	if (($param1===PHP_STR) || !is_word($param1)) {
-	  //updateHistoryWithErr("invalid image file");	
+	$test_param1 = trim($param1,"'");
+  if (($test_param1===PHP_STR) || !is_word($test_param1)) {
+	  echo("WARNING: invalid image file<br>");	
     return false;
   }
 	//param2==""
 	if ($param2!==PHP_STR) {
-    //updateHistoryWithErr("invalid parameters");
+    echo("WARNING: invalid parameters<br>");
     return false;
   }
   //param3==""
   if ($param3!==PHP_STR) {
-    //updateHistoryWithErr("invalid parameters");
+    echo("WARNING: invalid parameters<br>");
     return false;
   }
 	//param1 exist
-	$path = $curPath . DIRECTORY_SEPARATOR . $param1;
+	$path = $curPath . DIRECTORY_SEPARATOR . $test_param1;
 	if (!file_exists($path)) {
-    //updateHistoryWithErr("file must exists");	
+    echo("WARNING: file must exists<br>");	
 	  return false;
 	}  	
 	//param1 is_file
 	if (!is_file($path)) {
-    //updateHistoryWithErr("invalid inventory file");	
+    echo("WARNING: invalid image file<br>");	
 	  return false;
 	}  	
   //param1 file extension == gif | png | jpg | jpeg 
-  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
-  if ($fileExt !== "gif" && $fileExt !== "png" && $fileExt !== "jpg" && $fileExt !== "jpeg") {
-	  //updateHistoryWithErr("invalid inventory file");	
+  if (!is_image($test_param1)) {
+	  echo("WARNING: invalid image file<br>");	
 	  return false;
   }    
   
 	return true;
  }  
+
+
+ function myExecPrivatifyCommand() {
+   global $param1;
+   global $curPath;
+   
+   $privateData = [];
+   
+   $real_param1 = trim($param1, "'");
+   
+   $curFile = substr($curPath, strlen(APP_REPO_PATH)) . DIRECTORY_SEPARATOR . $real_param1;
+   //echo "curFile=$curFile";
+   
+   // Update .private file
+   $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
+   //echo "curFile=$privateFile";
+   
+   if (file_exists($privateFile)) {
+     $privateData = file($privateFile);   
+   }  
+   if (!in_array($curFile . "\n", $privateData)) {
+     $privateData[] = $curFile . "\n";  
+     file_put_contents($privateFile, implode('', $privateData));
+   }
+ }
+
 
  function publicifyparamValidation() {
 
@@ -247,44 +221,71 @@
 
 	//opt!=""
   if ($opt!==PHP_STR) {
-	  //updateHistoryWithErr("invalid options");	
+	  echo("WARNING: invalid options<br>");	
     return false;
   }	
 	//param1!="" and isword  
-	if (($param1===PHP_STR) || !is_word($param1)) {
-	  //updateHistoryWithErr("invalid image file");	
+  $test_param1 = trim($param1,"'");
+	if (($test_param1===PHP_STR) || !is_word($test_param1)) {
+	  echo("WARNING: invalid image file<br>");	
     return false;
   }
 	//param2==""
 	if ($param2!==PHP_STR) {
-    //updateHistoryWithErr("invalid parameters");
+    echo("WARNING: invalid parameters<br>");
     return false;
   }
   //param3==""
   if ($param3!==PHP_STR) {
-    //updateHistoryWithErr("invalid parameters");
+    echo("WARNING: invalid parameters<br>");
     return false;
   }
 	//param1 exist
-	$path = $curPath . DIRECTORY_SEPARATOR . $param1;
+	$path = $curPath . DIRECTORY_SEPARATOR . $test_param1;
 	if (!file_exists($path)) {
-    //updateHistoryWithErr("file must exists");	
+    echo("WARNING: file must exists<br>");	
 	  return false;
 	}  	
 	//param1 is_file
 	if (!is_file($path)) {
-    //updateHistoryWithErr("invalid inventory file");	
+    echo("WARNING: invalid image file<br>");	
 	  return false;
 	}  	
   //param1 file extension == gif | png | jpg | jpeg 
-  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
-  if ($fileExt !== "gif" && $fileExt !== "png" && $fileExt !== "jpg" && $fileExt !== "jpeg") {
-	  //updateHistoryWithErr("invalid inventory file");	
+  if (!is_image($test_param1)) {
+	  echo("WARNING: invalid image file<br>");	
 	  return false;
   }    
   
 	return true;
  }
+
+
+ function myExecPublicifyCommand() {
+   global $param1;
+   global $curPath;
+   
+   $privateData = [];
+   
+   $real_param1 = trim($param1, "'");
+   
+   $curFile = substr($curPath, strlen(APP_REPO_PATH)) . DIRECTORY_SEPARATOR . $real_param1;
+   //echo "curFile=$curFile";
+   
+   // Update .private file
+   $privateFile = APP_DATA_PATH . DIRECTORY_SEPARATOR . ".private";
+   //echo "curFile=$privateFile";
+   
+   if (file_exists($privateFile)) {
+     $privateData = file($privateFile);   
+   }  
+   $key = array_search($curFile . "\n", $privateData);  
+   if ($key!==false) {
+     unset($privateData[$key]);  
+     file_put_contents($privateFile, implode('', $privateData));
+   }
+ }
+
 
  function delparamValidation() {
 
@@ -296,44 +297,58 @@
 
 	//opt!=""
   if ($opt!==PHP_STR) {
-	  //updateHistoryWithErr("invalid options");	
+	  echo("WARNING: invalid options<br>");	
     return false;
   }	
-	//param1!="" and isword  
-	if (($param1===PHP_STR) || !is_word($param1)) {
-	  //updateHistoryWithErr("invalid image file");	
+	//param1!="" and isword
+  $test_param1 = trim($param1,"'");  
+  //echo("WARNING: ".$test_param1."<br>");
+	if (($test_param1===PHP_STR) || !is_word($test_param1)) {
+	  echo("WARNING: invalid image file<br>");	
     return false;
   }
 	//param2==""
 	if ($param2!==PHP_STR) {
-    //updateHistoryWithErr("invalid parameters");
+    echo("WARNING: invalid parameters<br>");
     return false;
   }
   //param3==""
   if ($param3!==PHP_STR) {
-    //updateHistoryWithErr("invalid parameters");
+    echo("WARNING: invalid parameters<br>");
     return false;
   }
 	//param1 exist
-	$path = $curPath . DIRECTORY_SEPARATOR . $param1;
+	$path = $curPath . DIRECTORY_SEPARATOR . $test_param1;
 	if (!file_exists($path)) {
-    //updateHistoryWithErr("file must exists");	
+    echo("WARNING: file must exists<br>");	
 	  return false;
 	}  	
 	//param1 is_file
 	if (!is_file($path)) {
-    //updateHistoryWithErr("invalid inventory file");	
+    echo("WARNING: invalid image file<br>");	
 	  return false;
 	}  	
   //param1 file extension == gif | png | jpg | jpeg 
-  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
-  if ($fileExt !== "gif" && $fileExt !== "png" && $fileExt !== "jpg" && $fileExt !== "jpeg") {
-	  //updateHistoryWithErr("invalid inventory file");	
+  if (!is_image($test_param1)) {
+	  echo("WARNING: invalid image file<br>");	
 	  return false;
   }    
   
 	return true;
  }
+
+
+ function myExecDelCommand() {
+   global $param1;
+   global $curPath;
+   
+   $real_param1 = trim($param1, "'");
+   $curFile = $curPath . DIRECTORY_SEPARATOR . $real_param1;
+   
+   unlink($curFile);
+   
+ }  
+
 
  function makedirparamValidation() {
 
@@ -345,40 +360,52 @@
 
 	//opt!=""
   if ($opt!==PHP_STR) {
-	  //updateHistoryWithErr("invalid options");	
+	  echo("WARNING: invalid options<br>");	
     return false;
   }	
-	//param1!="" and isword  
-	if (($param1===PHP_STR) || !is_word($param1)) {
-	  //updateHistoryWithErr("invalid folder name");	
+	//param1!="" and isword
+  $test_param1 = trim($param1,"'");  
+	if (($test_param1===PHP_STR) || !is_word($test_param1)) {
+	  echo("WARNING: invalid folder name<br>");	
     return false;
   }
 	//param2==""
 	if ($param2!==PHP_STR) {
-    //updateHistoryWithErr("invalid parameters");
+    echo("WARNING: invalid parameters<br>");
     return false;
   }
   //param3==""
   if ($param3!==PHP_STR) {
-    //updateHistoryWithErr("invalid parameters");
+    echo("WARNING: invalid parameters<br>");
     return false;
   }
 	//param1 exist
-	$path = $curPath . DIRECTORY_SEPARATOR . $param1;
+	$path = $curPath . DIRECTORY_SEPARATOR . $test_param1;
 	if (file_exists($path)) {
-    //updateHistoryWithErr("file must not exists");	
+    echo("WARNING: file must not exists<br>");	
 	  return false;
 	}  	
   //param1 file extension != gif | png | jpg | jpeg 
-  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
-  if ($fileExt === "gif" || $fileExt === "png" || $fileExt === "jpg" || $fileExt === "jpeg") {
-	  //updateHistoryWithErr("invalid inventory file");	
+  if (is_image($test_param1)) {
+	  echo("WARNING: invalid folder name<br>");	
 	  return false;
   }    
   
 	return true;
    
  }  
+
+
+ function myExecMakeDirCommand() {
+   global $param1;
+   global $curPath;
+
+   $real_param1 = trim($param1, "'");
+   $newpath = $curPath . DIRECTORY_SEPARATOR . $real_param1;
+   
+   mkdir($newpath, 0777);   
+ }   
+
   
  function upload() {
 
@@ -397,7 +424,7 @@
      
      //no file uploaded
      if ($uploads[0]['error'] === PHP_UPLOAD_ERR_NO_FILE) {
-       //updateHistoryWithErr("No file uploaded.", false);
+       echo("WARNING: No file uploaded.<br>");
        return;
      } 
  
@@ -407,40 +434,40 @@
        case PHP_UPLOAD_ERR_OK:
          break;
        case PHP_UPLOAD_ERR_NO_FILE:
-         //updateHistoryWithErr("One or more uploaded files are missing.", false);
+         echo("WARNING: One or more uploaded files are missing.<br>");
          return;
        case PHP_UPLOAD_ERR_INI_SIZE:
-         //updateHistoryWithErr("File exceeded INI size limit.", false);
+         echo("WARNING: File exceeded INI size limit.<br>");
          return;
        case PHP_UPLOAD_ERR_FORM_SIZE:
-         //updateHistoryWithErr("File exceeded form size limit.", false);
+         echo("WARNING: File exceeded form size limit.<br>");
          return;
        case PHP_UPLOAD_ERR_PARTIAL:
-         //updateHistoryWithErr("File only partially uploaded.", false);
+         echo("WARNING: File only partially uploaded.<br>");
          return;
        case PHP_UPLOAD_ERR_NO_TMP_DIR:
-         //updateHistoryWithErr("TMP dir doesn't exist.", false);
+         echo("WARNING: TMP dir doesn't exist.<br>");
          return;
        case PHP_UPLOAD_ERR_CANT_WRITE:
-         //updateHistoryWithErr("Failed to write to the disk.", false);
+         echo("WARNING: Failed to write to the disk.<br>");
          return;
        case PHP_UPLOAD_ERR_EXTENSION:
-         //updateHistoryWithErr("A PHP extension stopped the file upload.", false);
+         echo("WARNING: A PHP extension stopped the file upload.<br>");
          return;
        default:
-         //updateHistoryWithErr("Unexpected error happened.", false);
+         echo("WARNING: Unexpected error happened.<br>");
          return;
        }
       
        if (!is_uploaded_file($upload['tmp_name'])) {
-         //updateHistoryWithErr("One or more file have not been uploaded.", false);
+         echo("WARNING: One or more file have not been uploaded.<br>");
          return;
        }
       
        // name	 
        $name = (string)substr((string)filter_var($upload['name']), 0, 255);
        if ($name == PHP_STR) {
-         //updateHistoryWithErr("Invalid file name: " . $name, false);
+         echo("WARNING: Invalid file name: " . $name."<br>");
          return;
        } 
        $upload['name'] = $name;
@@ -452,7 +479,7 @@
        // tmp_name
        $tmp_name = substr((string)filter_var($upload['tmp_name']), 0, 300);
        if ($tmp_name == PHP_STR || !file_exists($tmp_name)) {
-         //updateHistoryWithErr("Invalid file temp path: " . $tmp_name, false);
+         echo("WARNING: Invalid file temp path: " . $tmp_name."<br>");
          return;
        } 
        $upload['tmp_name'] = $tmp_name;
@@ -460,7 +487,7 @@
        //size
        $size = substr((string)filter_var($upload['size'], FILTER_SANITIZE_NUMBER_INT), 0, 12);
        if ($size == "") {
-         //updateHistoryWithErr("Invalid file size.", false);
+         echo("WARNING: Invalid file size.<br>");
          return;
        } 
        $upload["size"] = $size;
@@ -479,11 +506,13 @@
        $destFullPath = $curPath . DIRECTORY_SEPARATOR . $destFileName;
        
        if (file_exists($destFullPath)) {
-         //updateHistoryWithErr("destination already exists", false);
+         echo("WARNING: destination already exists.<br>");
          return;
        }	   
         
        copy($tmpFullPath, $destFullPath);
+
+       chmod($destFullPath, 0766); 
 
        // Updating history..
        //$output = [];
@@ -676,7 +705,7 @@ function showImages() {
   }	
 	//param1!="" and isword  
 	if (($param1===PHP_STR) || !is_word($param1)) {
-	  echo("invalid pic file");	
+	  echo("invalid image file");	
     return false;
   }
 	//param2==""
@@ -692,17 +721,17 @@ function showImages() {
 	//param1 exist
 	$path = $curPath . DIRECTORY_SEPARATOR . $param1;
 	if (!file_exists($path)) {
-    echo("pic must exists");	
+    echo("file must exists");	
 	  return false;
 	}  	
 	//param1 is_file
 	if (!is_file($path)) {
-    echo("invalid pic file:" . $param1);	
+    echo("invalid image file:" . $param1);	
 	  return false;
 	}  	
   //param1 is_image
   if (!is_image($param1)) {
-	  echo("invalid pic file" . $param1);	
+	  echo("invalid image file" . $param1);	
 	  return false;
   }    
 
@@ -940,7 +969,7 @@ function showImages() {
 	  &nbsp;
     <?php if ($password!==PHP_STR): ?>
     <a href="#" id="upload" style="color:#5ab5e4;" onclick="upload()"><?php echo(getResource("Upload", $curLocale));?></a>
-	  <input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;">
+	  <input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;" multiple>
     <?php else: ?>
     <br>
     <?php endif; ?>
