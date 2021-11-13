@@ -44,6 +44,8 @@ define('APP_SALT', "yoursalt");
 define('APP_REPO_PATH', "/var/www/YourWebApp/Public/static/HGRepo");
 // Default Locale, in two letters format
 define('APP_LOCALE', "EN");
+// Default Context: 'PRIVATE' or 'PUBLIC'
+define('APP_DEFAULT_CONTEXT', "PUBLIC");
 
 define('CMDLINE_VALIDCMDS', "~|privatify|publicify|del|makedir|refresh|openpic|");
 
@@ -62,7 +64,9 @@ $CONFIG = [
       'SALT' => "yoursalt",
       'REPO_PATH' => "/var/www/YourWebApp/Public/static/HGRepo",
       // Default Locale, in two letters format
-      'LOCALE' => "EN"
+      'LOCALE' => "EN",
+      // Default Context: 'PRIVATE' or 'PUBLIC'
+      'DEFAULT_CONTEXT' => "PUBLIC"
       ],
      
     'CMDLINE' => [
