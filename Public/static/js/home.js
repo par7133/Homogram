@@ -84,16 +84,16 @@ function setFooterPos() {
 
 function delImg(id, path) {
   if (confirm("Do you really want to delete that picture?")) {
-    $("#CommandLine").val("del " + path);
+    $("#CommandLine").val("del '" + path + "'");
     frmHC.submit();
   }  
 }
 
 function changeVisibility(id, path) {
   if ($("#lock-" + id).attr("src") === "/res/private.png") {
-    $("#CommandLine").val("publicify " + path); 
+    $("#CommandLine").val("publicify '" + path + "'"); 
   } else {
-    $("#CommandLine").val("privatify " + path);
+    $("#CommandLine").val("privatify '" + path + "'");
   }    
   frmHC.submit();
 }  
@@ -101,7 +101,7 @@ function changeVisibility(id, path) {
 function makeNewFolder() {
   var newFolderName = prompt("How to name the new folder?");
   if (newFolderName != null) {
-    $("#CommandLine").val("makedir " + newFolderName);
+    $("#CommandLine").val("makedir '" + newFolderName + "'");
     frmHC.submit();
   }   
 }  
