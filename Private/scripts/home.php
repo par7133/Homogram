@@ -1058,7 +1058,7 @@ function showImages() {
 	
 	   Hello and welcome to Homogram!<br><br>
 	   
-	   Homogram is a light and simple software on premise to share your images.<br><br>
+	   Homogram is a light and simple software on premise to share your images. And it can be used as a private repository (screenshots, private shots, etc).<br><br>
 	   
 	   Homogram is released under GPLv3 license, it is supplied AS-IS and we do not take any responsibility for its misusage.<br><br>
 	   
@@ -1071,6 +1071,8 @@ function showImages() {
 	   <ol>
 	   <li>Check the write permissions of your "HGRepo" folder in your web app public path; and set its path in the config file.</li>
 	   <li>Check the write permissions of your "data" folder in your web app private path; and set its path in the config file.</li>
+     <li>Set the default Locale.</li>
+     <li>Set the default Context to PRIVATE or PUBLIC.</li>
 	   </ol>
 	   
 	   <br>	
