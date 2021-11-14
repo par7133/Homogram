@@ -16,7 +16,7 @@ As you are going to run Homogram in the PHP process context, using a limited web
 - Check the write permissions of your "HGRepo" folder in your web app public path; and set its path in the config file.   
 - Check the write permissions of your "data" folder in your web app private path; and set its path in the config file.
 - Set the default Locale.   
-- Set the default Context to PRIVATE or PUBLIC.  
+- Set the default Context to PUBLIC or PRIVATE (for a private repository).  
    
      
 Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homogram.org" style="color:#e6d236;">info@homogram.org</a>   
