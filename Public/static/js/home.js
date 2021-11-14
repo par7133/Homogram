@@ -186,7 +186,7 @@ function setContentPos() {
     $("#burger-menu").css("display","inline");
     $("#contentbar").css("width","100%");
     $("#logo-hg").css("display","none");
-  } else {  
+  } else if (window.innerWidth<1120) {
     $("#ahome").attr("href","http://homomm.org");
     $("#agithub").css("display","inline");
     $("#afeedback").css("display","inline");
@@ -195,6 +195,16 @@ function setContentPos() {
     $("#sidebar").css("display","inline");
     $("#burger-menu").css("display","none");
     $("#contentbar").css("width","75%");
+    $("#logo-hg").css("display","inline");      
+  } else {  
+    $("#ahome").attr("href","http://homomm.org");
+    $("#agithub").css("display","inline");
+    $("#afeedback").css("display","inline");
+    $("#asupport").css("display","inline");  
+    $("#pwd2").css("display","none");
+    $("#sidebar").css("display","inline");
+    $("#burger-menu").css("display","none");
+    $("#contentbar").css("width","77.5%");
     $("#logo-hg").css("display","inline");
   }
   hideBurgerMenu();
