@@ -15,7 +15,10 @@ First step, use the left side panel password and salt fields to create the hash 
 As you are going to run Homogram in the PHP process context, using a limited web server or phpfpm user, you must follow some simple directives for an optimal first setup:   
 
 - Check the write permissions of your "HGRepo" folder in your web app public path; and set its path in the config file.   
-- Check the write permissions of your "data" folder in your web app private path; and set its path in the config file.   
+- Check the write permissions of your "data" folder in your web app private path; and set its path in the config file.
+- Set the default Locale.   
+- Set the default Context to PRIVATE or PUBLIC.  
+   
      
 Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homogram.org" style="color:#e6d236;">info@homogram.org</a>   
 
