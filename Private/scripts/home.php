@@ -1071,7 +1071,7 @@ function showImages() {
 	   <li>Check the write permissions of your "HGRepo" folder in your web app public path; and set its path in the config file.</li>
 	   <li>Check the write permissions of your "data" folder in your web app private path; and set its path in the config file.</li>
      <li>Set the default Locale.</li>
-     <li>Set the default Context to PRIVATE or PUBLIC.</li>
+     <li>Set the default Context to PUBLIC or PRIVATE (for a private repository).</li>
 	   </ol>
 	   
 	   <br>	
