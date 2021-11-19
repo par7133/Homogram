@@ -702,6 +702,9 @@ function showImages() {
       $title = substr($fsEntry, $ipos+1);
       $ipos = mb_stripos($title, ".");
       $title = substr($title, 0, $ipos);
+      if (strlen($title)>22) {
+        $title = left($title,22) . "..";
+      }  
 
       $cdate = date("d-m-Y", filectime($fsEntry));
 
