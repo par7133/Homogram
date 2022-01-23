@@ -23,7 +23,7 @@ Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@h
    
 ### Voyeur: the on demand hosting service for Homogram   
   
-Optionally you can request us to host Homogramm for you, for 5$ a month each 2gb of space.  
+Optionally you can request us to host Homogram for you, for 5$ a month each 2gb of space.  
 For more info please write to <a href="mailto:info@homogram.org" style="color:#e6d236;">info@homogram.org</a>
 
 ### Screenshot:
