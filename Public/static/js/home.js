@@ -187,7 +187,7 @@ function setContentPos() {
     $("#contentbar").css("width","100%");
     $("#logo-hg").css("display","none");
   } else if (window.innerWidth<1120) {
-    $("#ahome").attr("href","http://homomm.org");
+    $("#ahome").attr("href","http://homogram.org");
     $("#agithub").css("display","inline");
     $("#afeedback").css("display","inline");
     $("#asupport").css("display","inline");  
@@ -197,7 +197,7 @@ function setContentPos() {
     $("#contentbar").css("width","75%");
     $("#logo-hg").css("display","inline");      
   } else {  
-    $("#ahome").attr("href","http://homomm.org");
+    $("#ahome").attr("href","http://homogram.org");
     $("#agithub").css("display","inline");
     $("#afeedback").css("display","inline");
     $("#asupport").css("display","inline");  
