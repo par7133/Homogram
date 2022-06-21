@@ -46,6 +46,8 @@ define('APP_REPO_PATH', "/var/www/YourWebApp/Public/static/HGRepo");
 define('APP_LOCALE', "EN");
 // Default Context: 'PRIVATE' or 'PUBLIC'
 define('APP_DEFAULT_CONTEXT', "PUBLIC");
+// Last undescore check parsing the image title
+define('APP_LAST_UNDERSCORE_CHECK', false);
 
 define('CMDLINE_VALIDCMDS', "~|privatify|publicify|del|makedir|refresh|openpic|");
 
@@ -66,7 +68,9 @@ $CONFIG = [
       // Default Locale, in two letters format
       'LOCALE' => "EN",
       // Default Context: 'PRIVATE' or 'PUBLIC'
-      'DEFAULT_CONTEXT' => "PUBLIC"
+      'DEFAULT_CONTEXT' => "PUBLIC",
+      // Last undescore check parsing the image title
+      'LAST_UNDERSCORE_CHECK' => false
       ],
      
     'CMDLINE' => [
