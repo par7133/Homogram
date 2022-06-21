@@ -702,6 +702,16 @@ function showImages() {
       $title = substr($fsEntry, $ipos+1);
       $ipos = mb_stripos($title, ".");
       $title = substr($title, 0, $ipos);
+      
+      //parsing title for underscore
+      if (APP_LAST_UNDERSCORE_CHECK) {
+        $ipos = mb_strripos($title, "_");
+        if ($ipos === false) {
+        } else {
+          $title = substr($title, $ipos+1);
+        }
+      } 
+        
       if (strlen($title)>22) {
         $title = left($title,22) . "..";
       }  
