@@ -388,6 +388,12 @@
    
    unlink($curFile);
    
+   $curFileThumb = $curPath . DIRECTORY_SEPARATOR . "thumbs"  . DIRECTORY_SEPARATOR . $real_param1;
+   
+   if (is_readable($curFileThumb)) {
+     unlink($curFileThumb);
+   }   
+   
  }  
 
 
@@ -550,10 +556,19 @@
          echo("WARNING: destination already exists.<br>");
          return;
        }	   
-        
+       
        copy($tmpFullPath, $destFullPath);
 
        chmod($destFullPath, 0766); 
+
+       // Creating thumb file 
+       if (is_readable($curPath . DIRECTORY_SEPARATOR . "thumbs")) {  
+         $destFullPath = $curPath . DIRECTORY_SEPARATOR . "thumbs" . DIRECTORY_SEPARATOR . $destFileName;
+
+         copy($tmpFullPath, $destFullPath);
+
+         chmod($destFullPath, 0766); 
+       }
 
        // Updating history..
        //$output = [];
@@ -654,6 +669,10 @@ function showImages() {
     $ipos = mb_strripos($fsEntry, "/");
     $title = substr($fsEntry, $ipos+1);
     
+    if ($title === "thumbs") {
+      continue;
+    }
+
     $cdate = date("d-m-Y", filectime($fsEntry));
     
     echo "<table style='float:left;width:235px;height:200px;margin-top:5px;margin-right:4px;border:0px solid #D2D2D2'>";
@@ -666,6 +685,12 @@ function showImages() {
   /*
    * Display images
    */
+  if (is_readable($path . "/thumbs")) { 
+    $pattern = $path . "/thumbs/*";
+  } else {
+    $pattern = $path . "/*";
+  }
+
   $aImages = glob($pattern);
 
   sort($aImages);
