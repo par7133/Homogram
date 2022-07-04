@@ -17,7 +17,7 @@ As you are going to run Homogram in the PHP process context, using a limited web
 - Check the write permissions of your "data" folder in your web app private path; and set its path in the config file.
 - Set the default Locale.   
 - Set the default Context to PUBLIC or PRIVATE (for a private repository).  
-- Every picture folder may contain a "thumbs" folder - that you should create - to not lack in performance.   
+- Every picture folder may contain a "thumbs" subfolder - that you should create - to not lack in performance: file names in thumbs must be same of file names in parent folders.   
      
 Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homogram.org" style="color:#e6d236;">info@homogram.org</a>   
    
