@@ -1,5 +1,4 @@
-# Homogram   
-## Every person its pictures..   
+# Homogram     
   
 Hello and welcome to Homogram!   
 	   
