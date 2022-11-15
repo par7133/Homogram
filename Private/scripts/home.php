@@ -1232,6 +1232,10 @@ window.addEventListener("resize", function() {
 
 </script>    
 
+<!-- METRICS CODE -->
+<?php if (file_exists(APP_PATH . DIRECTORY_SEPARATOR . "metrics.html")): ?>
+<?php include(APP_PATH . DIRECTORY_SEPARATOR . "metrics.html"); ?> 
+<?php endif; ?>
 
 </body>	 
 </html>	 
