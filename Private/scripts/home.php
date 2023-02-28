@@ -607,7 +607,6 @@ function showImages() {
   $root = APP_REPO_PATH; 
   
   //subpath
-  ///$subpath = mb_substr((string)filter_input(INPUT_GET, "path", FILTER_SANITIZE_STRING), 0, 500);
   $subpath = $curPath;
   if ($subpath!=="" && is_dir($subpath)) {
     $path = $subpath;  
@@ -843,16 +842,25 @@ function showImages() {
  }   
  
   
- $password = filter_input(INPUT_POST, "Password");
+ $password = filter_input(INPUT_POST, "Password")??"";
+ $password = strip_tags($password);
  if ($password==PHP_STR) {
-   $password = filter_input(INPUT_POST, "Password2");
+   $password = filter_input(INPUT_POST, "Password2")??"";
+   $password = strip_tags($password);
  }  
- $command = filter_input(INPUT_POST, "CommandLine");
  
- $pwd = filter_input(INPUT_POST, "pwd"); 
- $hideSplash = filter_input(INPUT_POST, "hideSplash");
- $hideHCSplash = filter_input(INPUT_POST, "hideHCSplash");
-
+ $command = filter_input(INPUT_POST, "CommandLine")??"";
+ $command = strip_tags($command);
+ 
+ $pwd = filter_input(INPUT_POST, "pwd")??""; 
+ $pwd = strip_tags($pwd);
+ 
+ $hideSplash = filter_input(INPUT_POST, "hideSplash")??"";
+ $hideSplash = strip_tags($hideSplash);
+ 
+ $hideHCSplash = filter_input(INPUT_POST, "hideHCSplash")??"";
+ $hideHCSplash = strip_tags($hideHCSplash);
+ 
  if ($password !== PHP_STR) {	
 	$hash = hash("sha256", $password . APP_SALT, false);
 
@@ -1236,6 +1244,6 @@ window.addEventListener("resize", function() {
 <?php if (file_exists(APP_PATH . DIRECTORY_SEPARATOR . "metrics.html")): ?>
 <?php include(APP_PATH . DIRECTORY_SEPARATOR . "metrics.html"); ?> 
 <?php endif; ?>
-
+  
 </body>	 
 </html>	 
