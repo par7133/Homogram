@@ -1043,7 +1043,7 @@ function showImages() {
 <form id="frmHC" method="POST" action="/" target="_self" enctype="multipart/form-data" style="display:<?php echo((($hideHCSplash == "1") && ($hidePlayer == "1")?"inline":"none"));?>;">
 
 <div class="header">
-   <a id="burger-menu" href="#" style="display:none;"><img src="/res/burger-menu2.png" style="width:58px;"></a><a id="ahome" href="http://homogram.org" target="_blank" style="color:#000000; text-decoration: none;"><img  id="logo-hg" src="res/HGlogo2.png" style="width:45px;">&nbsp;Homogram</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="agithub" href="https://github.com/par7133/Homogram" style="color:#000000;"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="afeedback" href="mailto:info@homogram.org" style="color:#000000;"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="asupport" href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:#000000;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a><div id="pwd2" style="float:right;position:relative;top:+13px;display:none"><input type="password" id="Password2" name="Password2" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 125px; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off"></div>
+   <a id="burger-menu" href="#" style="display:none;"><img src="/res/burger-menu2.png" style="width:58px;"></a><a id="ahome" href="http://homogram.org" target="_blank" style="color:#000000; text-decoration: none;"><img  id="logo-hg" src="res/HGlogo2.png" style="width:45px;">&nbsp;Homogram</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="agithub" href="https://github.com/par7133/Homogram" style="color:#000000;"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="afeedback" href="mailto:posta@elettronica.lol" style="color:#000000;"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="asupport" href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:#000000;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a><div id="pwd2" style="float:right;position:relative;top:+13px;display:none"><input type="password" id="Password2" name="Password2" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 125px; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off"></div>
 </div>
 
 <div style="clear:both;"></div>
@@ -1055,7 +1055,7 @@ function showImages() {
     <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="#" style="text-decoration:none;color:black;" onclick="upload()"><?php echo(strtolower(getResource("Upload", $curLocale)));?></a></div>
 <?php endif; ?>
     <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="https://github.com/par7133/Homogram" style="text-decoration:none;color:black;">on github</a></div>
-    <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="mailto:info@homogram.org" style="text-decoration:none;color:black;">for feedback</a></div>
+    <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="mailto:posta@elettronica.lol" style="text-decoration:none;color:black;">for feedback</a></div>
     <div class="burger-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="text-decoration:none;color:black;">get support</a></div>
 </td>
 </tr>
@@ -1122,7 +1122,7 @@ function showImages() {
 	   
 	   <br>	
      
-	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homogram.org" style="color:#e6d236;">info@homogram.org</a>
+	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:posta@elettronica.lol" style="color:#e6d236;">posta@elettronica.lol</a>
 	   
 	</div>	
 	<?php endif; ?>
