@@ -1240,6 +1240,11 @@ window.addEventListener("resize", function() {
 
 </script>    
 
+<!-- SKINNER CODE -->
+<?php if (file_exists(APP_PATH . DIRECTORY_SEPARATOR . "skinner.html")): ?>
+<?php include(APP_PATH . DIRECTORY_SEPARATOR . "skinner.html"); ?> 
+<?php endif; ?>
+	
 <!-- METRICS CODE -->
 <?php if (file_exists(APP_PATH . DIRECTORY_SEPARATOR . "metrics.html")): ?>
 <?php include(APP_PATH . DIRECTORY_SEPARATOR . "metrics.html"); ?> 
