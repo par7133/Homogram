@@ -18,14 +18,13 @@ As you are going to run Homogram in the PHP process context, using a limited web
 - Set the default Context to PUBLIC or PRIVATE (for a private repository).  
 - Every picture folder may contain a "thumbs" subfolder - that you should create - to not lack in performance: file names in thumbs must be same of file names in parent folders.   
      
-Hope you can enjoy it and let us know about any feedback: <a href="mailto:posta@elettronica.lol" style="color:#e6d236;">posta@elettronica.lol</a>   
-   
+### Screenshot:
+
+ ![Homogram in action](/Public/static/res/screenshot1.jpg)
+
 ### Voyeur: the on demand hosting service for Homogram   
   
 Optionally you can request us to host Homogram for you, for 5$ a month each 2GB of space.  
 For more info please write to <a href="mailto:info@5mode.com" style="color:#e6d236;">info@5mode.com</a>
 
-### Screenshot:
-
- ![Homogram in action](/Public/static/res/screenshot1.jpg)
-  
+Feedback: <a href="mailto:posta@elettronica.lol" style="color:#e6d236;">posta@elettronica.lol</a>   
