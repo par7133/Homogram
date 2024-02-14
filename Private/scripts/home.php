@@ -989,6 +989,10 @@ function showImages() {
 </head>
 <body>
 
+<?php if (file_exists(APP_PATH . DIRECTORY_SEPARATOR . "jscheck.html")): ?>
+<?php include(APP_PATH . DIRECTORY_SEPARATOR . "jscheck.html"); ?> 
+<?php endif; ?>
+
 <div id="HCsplash" style="padding-top: 160px; text-align:center;color:#ffffff;display:none;">
    <div id="myh1"><H1>Homogram</H1></div><br>
    <img src="res/HGlogo2.png" style="width:310px;">
@@ -1244,7 +1248,7 @@ window.addEventListener("resize", function() {
 <?php if (file_exists(APP_PATH . DIRECTORY_SEPARATOR . "skinner.html")): ?>
 <?php include(APP_PATH . DIRECTORY_SEPARATOR . "skinner.html"); ?> 
 <?php endif; ?>
-	
+
 <!-- METRICS CODE -->
 <?php if (file_exists(APP_PATH . DIRECTORY_SEPARATOR . "metrics.html")): ?>
 <?php include(APP_PATH . DIRECTORY_SEPARATOR . "metrics.html"); ?> 
