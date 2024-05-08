@@ -24,7 +24,7 @@ As you are going to run Homogram in the PHP process context, using a limited web
 
 ### Voyeur: the on demand hosting service for Homogram   
   
-Optionally you can request us to host Homogram for you, for 5$ a month each 2GB of space.  
-For more info please write to <a href="mailto:info@5mode.com" style="color:#e6d236;">info@5mode.com</a>
+Optionally you can request us to host Homogram for you, for 5 bucks a month each 2GB of space.  
+
 
 Feedback: <a href="mailto:posta@elettronica.lol" style="color:#e6d236;">posta@elettronica.lol</a>   
