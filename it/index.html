@@ -113,9 +113,9 @@
 </head>
 <body>
 
-<div id="langhideit">
+<div id="langhideen">
    <br>
-   &nbsp;We have detected that you maybe speak Italian, do you want to be redirected to the italian site? <button onclick="$('#langhideit').hide();">NO</button>&nbsp;<button onclick="window.open('https://homogram.numode-foss.eu/it','_self');">OK</button>
+   &nbsp;We have detected that you maybe speak English, do you want to be redirected to the english site? <button onclick="$('#langhideen').hide();">NO</button>&nbsp;<button onclick="window.open('https://homogram.numode-foss.eu','_self');">OK</button>
    <br><br>
 </div>
 
@@ -160,25 +160,25 @@
         <span aria-hidden="true">&times;</span>
      </button>
 	
-	   Hello and welcome to Homogram!<br><br>
-	   
-	   Homogram is a light and simple software on premise to share your images. And it can be used as a private repository (screenshots, private shots, etc).<br><br>
-	   
-	   Homogram is released under GPLv3 license, it is supplied AS-IS and we do not take any responsibility for its misusage.<br><br>
-	   
-       The name *Homogram* comes from a prank on the name 'instagram', in fact differently from the latter Homogram gives priorities to homines. However Homogram doesn't birth as a replacement but just like its alter ego.<br><br> 
-     
-	   First step, use the left side panel password and salt fields to create the hash to insert in the config file. Remember to manually set there also the salt value.<br><br>
-	   
-	   As you are going to run Homogram in the PHP process context, using a limited web server or phpfpm user, you must follow some simple directives for an optimal first setup:<br>
-	   <ol>
-	   <li>Check the write permissions of your "HGRepo" folder in your web app public path; and set its path in the config file.</li>
-	   <li>Check the write permissions of your "data" folder in your web app private path; and set its path in the config file.</li>
-           <li>Set the default Locale.</li>
-           <li>Set the default Context to PUBLIC or PRIVATE (for a private repository).</li>
-           <li>Every picture folder may contain a "thumbs" subfolder - that you should create - to not lack in performance: file names in thumbs must be same of file names in parent folders.</li>
+Ciao e benvenuto su Homogram!<br><br> 
 
-	   </ol>
+Homogram è un software on-premise leggero e semplice per condividere le tue immagini. E può essere utilizzato come archivio privato (screenshot, scatti privati, ecc.).<br><br> 
+
+Homogram è rilasciato sotto licenza GPLv3, viene fornito AS-IS e non ci assumiamo alcuna responsabilità per il suo uso improprio.<br><br> 
+
+Il nome *Homogram* deriva da uno scherzo sul nome 'instagram', infatti a differenza di quest'ultimo Homogram dà priorità agli homines. Tuttavia Homogram non nasce come sostituto ma proprio come il suo alter ego.<br><br> 
+
+Primo passaggio, utilizzare la password del pannello laterale sinistro e i campi salt per creare l'hash da inserire nel file di configurazione. Ricordati di impostare manualmente lì anche il valore del sale.<br><br> 
+
+Poiché eseguirai Homogram nel contesto del processo PHP, utilizzando un server Web limitato o un utente phpfpm, devi seguire alcune semplici direttive per una prima configurazione ottimale:<br> 
+
+<ol> 
+<li>Controlla i permessi di scrittura della tua cartella "HGRepo" nel percorso pubblico della tua app web; e imposta il suo percorso nel file di configurazione.</li> 
+<li>Verifica i permessi di scrittura della tua cartella "dati" nel percorso privato della tua web app; e imposta il suo percorso nel file di configurazione.</li> 
+<li>Imposta la lingua predefinita.</li> 
+<li>Imposta il contesto predefinito su PUBLIC o PRIVATE (per un repository privato).</li> 
+<li>Ogni cartella di immagini può contenere una sottocartella "thumbs" - che dovresti creare - per non perdere prestazioni: i nomi dei file nelle miniature devono essere uguali ai nomi dei file nelle cartelle principali.</li> 
+</ol>
 
        <br>
 
@@ -242,12 +242,12 @@ window.addEventListener("load", function() {
 </script>  
 
 <script>
-    function isItalian() {
+    function isEnglish() {
       ret = false;
       lang = window.navigator.language;
       lang = lang.toLowerCase();
       //alert(lang);
-      if (lang === "it" || lang === "it-it" || lang === "italian") {
+      if (lang === "en" || lang === "en-us" || lang === "en-gb" || lang === "english") {
         ret = true;
       }
       return ret;
@@ -263,8 +263,8 @@ window.addEventListener("load", function() {
       return ret;
     }
 
-    if (isItalian()) {
-      $("#langhideit").show();
+    if (isEnglish()) {
+      $("#langhideen").show();
     }
 
     if (isChinese()) {

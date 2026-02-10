@@ -113,17 +113,17 @@
 </head>
 <body>
 
-<div id="langhideit">
+ <div id="langhideen">
+   <br>
+   &nbsp;We have detected that you maybe speak English, do you want to be redirected to the english site? <button onclick="$('#langhideen').hide();">NO</button>&nbsp;<button onclick="window.open('https://homogram.numode-foss.eu','_self');">OK</button>
+   <br><br>
+ </div>
+
+ <div id="langhideit">
    <br>
    &nbsp;We have detected that you maybe speak Italian, do you want to be redirected to the italian site? <button onclick="$('#langhideit').hide();">NO</button>&nbsp;<button onclick="window.open('https://homogram.numode-foss.eu/it','_self');">OK</button>
    <br><br>
-</div>
-
-<div id="langhidecn">
-   <br>
-   &nbsp;We have detected that you maybe speak Chinese, do you want to be redirected to the chinese site? <button onclick="$('#langhidecn').hide();">NO</button>&nbsp;<button onclick="window.open('https://homogram.numode-foss.eu/cn','_self');">OK</button>
-   <br><br>
-</div>
+ </div>
 
 <div id="HCsplash" style="padding-top: 160px; text-align:center;color:#ffffff;display:none;">
    <div id="myh1"><H1>Homogram</H1></div><br>
@@ -160,25 +160,25 @@
         <span aria-hidden="true">&times;</span>
      </button>
 	
-	   Hello and welcome to Homogram!<br><br>
-	   
-	   Homogram is a light and simple software on premise to share your images. And it can be used as a private repository (screenshots, private shots, etc).<br><br>
-	   
-	   Homogram is released under GPLv3 license, it is supplied AS-IS and we do not take any responsibility for its misusage.<br><br>
-	   
-       The name *Homogram* comes from a prank on the name 'instagram', in fact differently from the latter Homogram gives priorities to homines. However Homogram doesn't birth as a replacement but just like its alter ego.<br><br> 
-     
-	   First step, use the left side panel password and salt fields to create the hash to insert in the config file. Remember to manually set there also the salt value.<br><br>
-	   
-	   As you are going to run Homogram in the PHP process context, using a limited web server or phpfpm user, you must follow some simple directives for an optimal first setup:<br>
-	   <ol>
-	   <li>Check the write permissions of your "HGRepo" folder in your web app public path; and set its path in the config file.</li>
-	   <li>Check the write permissions of your "data" folder in your web app private path; and set its path in the config file.</li>
-           <li>Set the default Locale.</li>
-           <li>Set the default Context to PUBLIC or PRIVATE (for a private repository).</li>
-           <li>Every picture folder may contain a "thumbs" subfolder - that you should create - to not lack in performance: file names in thumbs must be same of file names in parent folders.</li>
+ 您好，欢迎来到 Homogram！<br><br>
 
-	   </ol>
+ Homogram 是一款用于共享图像的轻量且简单的软件。并且它可以用作私人存储库（屏幕截图、私人截图等）。<br><br>
+
+ Homogram 根据 GPLv3 许可证发布，按原样提供，我们对其误用不承担任何责任。<br><br>
+
+ *Homogram* 这个名字来自于“instagram”这个名字的恶作剧，事实上与后者不同的是，Homogram 优先考虑人类。然而，同形异形并不是作为替代品诞生的，而是像它的另一个自我一样。<br><br>
+
+ 第一步，使用左侧面板密码和盐字段创建要插入配置文件中的哈希值。请记住手动设置盐值。<br><br>
+
+ 当您要使用有限的 Web 服务器或 phpfpm 用户在 PHP 进程上下文中运行 Homogram 时，您必须遵循一些简单的指令以获得最佳的首次设置：<br>
+
+ <ol>
+ <li>检查网络应用公共路径中“HGRepo”文件夹的写入权限；并在配置文件中设置其路径。</li>
+ <li>检查网络应用私有路径中“data”文件夹的写入权限；并在配置文件中设置其路径。</li>
+ <li>设置默认区域设置。</li>
+ <li>将默认上下文设置为 PUBLIC 或 PRIVATE（对于私有存储库）。</li>
+ <li>每个图片文件夹都可能包含一个“thumbs”子文件夹（您应该创建该子文件夹），以免性能下降：thumbs 中的文件名必须与父文件夹中的文件名相同。</li>
+ </ol>
 
        <br>
 
@@ -253,11 +253,11 @@ window.addEventListener("load", function() {
       return ret;
     }
 
-    function isChinese() {
+    function isEnglish() {
       ret = false;
       lang = window.navigator.language;
       lang = lang.toLowerCase();
-      if (lang === "cn" || lang === "zh-cn" || lang === "chinese" || lang === "chinese simplified" || lang === "mandarin") {
+      if (lang === "en" || lang === "en-us" || lang === "en-gb" || lang === "english") {
         ret = true;
       }
       return ret;
@@ -267,8 +267,8 @@ window.addEventListener("load", function() {
       $("#langhideit").show();
     }
 
-    if (isChinese()) {
-      $("#langhidecn").show();
+    if (isEnglish()) {
+      $("#langhideen").show();
     }
 </script>
 
