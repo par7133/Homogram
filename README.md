@@ -24,10 +24,10 @@ Optionally you can request Voyeur to host Homogram for you, for 5 bucks a month 
 
 For any need of software additions, plugins and improvements please write to <a href="mailto:info@numode.eu">info@numode.eu</a>  
 
-To help please donate by clicking <a href="https://gaox.io/l/dona1">https://gaox.io/l/dona1</a> and filling the form.  
+To help please donate by clicking <a href="https://gaox.eu/l/dona1">https://gaox.eu/l/dona1</a> and filling the form.  
      
 ### Screenshot:
 
  ![Homogram in action](/Public/static/res/screenshot1.jpg)
 
-Feedback: <a href="mailto:code@gaox.io">code@gaox.io</a>   
+Feedback: <a href="mailto:code@gaox.eu">code@gaox.eu</a>   
