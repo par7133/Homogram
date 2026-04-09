@@ -30,4 +30,4 @@ To help please donate by clicking <a href="https://gaox.io/l/dona1">https://gaox
 
  ![Homogram in action](/Public/static/res/screenshot1.jpg)
 
-Feedback: <a href="mailto:code@gaox.eu">code@gaox.eu</a>   
+Feedback: <a href="mailto:code@gaox.io">code@gaox.io</a>   
